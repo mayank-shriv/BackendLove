@@ -1,0 +1,18 @@
+{
+  "name": "project_backend",
+  "version": "1.0.0",
+  "description": "Bhaiya Project banva rahe h backend sikhne ke liye a basic app to deploy",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "mayank shrivastava",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1"
+  }
+}
