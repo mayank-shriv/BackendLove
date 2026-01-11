@@ -6,3 +6,4 @@ dotenv.config();
 
 
 connectDB();
+console.log("hello")  // checking async and await.
