@@ -7,3 +7,7 @@
 - **bcryptjs**: Used for hashing and comparing passwords within Mongoose hooks.
 - **dotenv**: For managing environment variables.
 - **cookie-parser**: Middleware for handling HTTP cookies.
+
+
+multer
+and cloudinary
