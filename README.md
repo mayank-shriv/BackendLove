@@ -2,40 +2,52 @@
 
 A comprehensive backend development journey using Node.js, Express.js, MongoDB, and related technologies.
 
+---
+
 ## 📁 Project Structure
 
-| Folder | Description |
-|--------|-------------|
-| `01-Express-Node-Fundamentals` | Core concepts, Express.js, Node.js, REST APIs, and interview-ready notes |
-| `02-MongoDB-Connection-Setup` | Setting up MongoDB with Mongoose, environment variables, and dev tooling |
-| `03-API-Response-Error-Handling` | Custom API responses, centralized error handling, and project architecture |
-| `04-Mongoose-Models-JWT-Auth` | Mongoose models with hooks, bcrypt password hashing, JWT authentication |
-| `05-File-Upload-Multer-Cloudinary` | File uploads using Multer and Cloudinary cloud storage |
-| `06-HTTP-Protocol-Reference` | Visual HTTP protocol reference materials |
-
-## 🛠️ Technologies Covered
-
-- **Runtime**: Node.js
-- **Framework**: Express.js
-- **Database**: MongoDB with Mongoose ODM
-- **Authentication**: JWT (Access & Refresh Tokens)
-- **File Handling**: Multer + Cloudinary
-- **Security**: bcrypt, cookie-parser, CORS, Helmet
-
-## 📚 Learning Resources
-
-Based on **Chai aur Code** backend series with personal notes and implementations.
+| # | Folder | Description | Key Topics |
+|---|--------|-------------|------------|
+| 01 | `Express-Node-Fundamentals` | Core backend concepts and foundations | Node.js runtime, Express.js framework, REST API design, Middleware patterns |
+| 02 | `MongoDB-Connection-Setup` | Database configuration and setup | MongoDB Atlas, Mongoose connection, Environment variables, Dev tooling |
+| 03 | `API-Response-Error-Handling` | Production-ready API patterns | Custom ApiError/ApiResponse classes, asyncHandler, Centralized error handling |
+| 04 | `Mongoose-Models-JWT-Auth` | Data modeling and authentication | Schema design, Pre-save hooks, bcrypt hashing, JWT Access/Refresh tokens |
+| 05 | `File-Upload-Multer-Cloudinary` | File upload pipeline | Multer middleware, Cloudinary cloud storage, Multipart form handling |
+| 06 | `HTTP-Protocol-Reference` | Visual HTTP reference | HTTP methods, Status codes, Request/Response cycle |
+| 07 | `Full-Stack-Video-Platform` | Complete integrated project | All concepts combined into a video streaming platform |
 
 ---
 
-## Quick Start
+## 🛠️ Technologies Covered
 
-Each folder is a standalone learning module. Navigate into any folder and check its `README.md` for specific instructions.
+| Category | Technologies |
+|----------|-------------|
+| **Runtime** | Node.js |
+| **Framework** | Express.js |
+| **Database** | MongoDB with Mongoose ODM |
+| **Authentication** | JWT (Access & Refresh Tokens), bcrypt |
+| **File Handling** | Multer, Cloudinary |
+| **Security** | cookie-parser, CORS, Helmet |
+
+---
+
+## 🚀 Quick Start
 
 ```bash
-# Install dependencies (in project folders)
+# Navigate to any module folder
+cd 01-Express-Node-Fundamentals
+
+# Install dependencies
 npm install
 
 # Run development server
 npm run dev
 ```
+
+---
+
+## 📚 Learning Resources
+
+Based on **Chai aur Code** backend series with personal notes and implementations.
+
+> 📝 **Interview prep notes available in `notes.md`** (not tracked in git)

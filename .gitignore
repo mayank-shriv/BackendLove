@@ -1,6 +1,9 @@
 # Dependencies
 node_modules/
 
+# Personal Notes (not tracked)
+notes.md
+
 # Environment Variables (Critical for security)
 .env
 .env.*
