@@ -30,7 +30,7 @@ const userSchema = new Schema(
             trim: true,
             index: true
         },
-        avtar: {
+        avatar: {
             type: String,   // Cloudinary URL for profile picture
             required: true,
         },
@@ -60,10 +60,9 @@ const userSchema = new Schema(
  * Pre-save Hook: Hashes the password using bcrypt before saving to the database.
  * isModified("password") ensures hashing only occurs when the password changes.
  */
-userSchema.pre("save", async function (next) {
-    if (!this.isModified("password")) return next();
+userSchema.pre("save", async function () {
+    if (!this.isModified("password")) return;
     this.password = await bcrypt.hash(this.password, 10);
-    next();
 });
 
 /**
