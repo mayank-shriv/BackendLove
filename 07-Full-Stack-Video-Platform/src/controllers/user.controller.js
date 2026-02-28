@@ -92,14 +92,24 @@ const registerUser = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res)=>{
 
     const {username, email, password}  = req.body
+    // console.log("REQ.BODY:", req.body);
+    // const { email } = req.body;
 
-    if (!username || !email){
+// console.log("EMAIL FROM REQUEST:", email);
+
+// const user = await User.findOne({ email });
+
+
+    if (!username && !email){
         throw new ApiError(400, "username or email is required")
     }
 
     const user = await User.findOne({
         $or: [{username},{email}]
     })
+    // console.log("USER FROM DB:", user);
+    // const users = await User.find();
+    // console.log("ALL USERS:", users);
     if (!user){
         throw new ApiError(400, "User does'nt exist")
     }
@@ -111,7 +121,7 @@ const loginUser = asyncHandler(async (req, res)=>{
 
     const {accessToken, refreshToken} = await generateAccessAndRefreshToken(user._id)
 
-    const loggedInUser = await user.findById(user._id).select("-password -refreshToken")
+    const loggedInUser = await User.findById(user._id).select("-password -refreshToken")
 
     const options = {
         httpOnly : true,
