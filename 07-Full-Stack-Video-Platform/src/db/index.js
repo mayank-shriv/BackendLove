@@ -69,6 +69,7 @@ const connectDB = async () => {
     // SUCCESS: Log the MongoDB host to confirm which cluster/instance we connected to
     // Useful for verifying connections in multi-environment setups (dev, staging, prod)
     console.log("MongoDB Connected:", connectionInstance.connection.host);
+    console.log("DB NAME:", mongoose.connection.name);
     // Example output: "MongoDB Connected: cluster0-shard-00-00.mongodb.net"
 
   } catch (error) {

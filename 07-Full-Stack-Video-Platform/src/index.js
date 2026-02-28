@@ -21,6 +21,7 @@ import { app } from "./app.js";
 connectDB()
   // Step 2: Once database connection is successful, start the Express server
   .then(() => {
+    
     // Start listening for incoming HTTP requests
     // Use PORT from environment variables, fallback to 3000 if not set
     app.listen(process.env.PORT || 3000, () => {

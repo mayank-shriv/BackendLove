@@ -8,11 +8,11 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 })
 
-console.log("Cloudinary Config:", {
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET
-});
+// console.log("Cloudinary Config:", {
+    // cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    // api_key: process.env.CLOUDINARY_API_KEY,
+    // api_secret: process.env.CLOUDINARY_API_SECRET
+// });
 
 
 
@@ -24,7 +24,7 @@ const uploadOnCloudinary = async (localPath) => {
                 resource_type: "auto"
         })
         //file successfully uploaded
-        console.log("File Uploaded succeessfully",responce.url);
+        // console.log("File Uploaded succeessfully",responce.url);
         return responce;
         
     }catch(error)
