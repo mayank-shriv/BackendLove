@@ -2,11 +2,6 @@ import mongoose, { Schema } from "mongoose";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
-/**
- * User Schema: Defines the structure and validation for user documents.
- * - index: true: Optimizes database queries for frequently searched fields.
- * - timestamps: true: Automatically adds 'createdAt' and 'updatedAt' fields.
- */
 const userSchema = new Schema(
     {
         username: {
@@ -31,7 +26,7 @@ const userSchema = new Schema(
             index: true
         },
         avatar: {
-            type: String,   // Cloudinary URL for profile picture
+            type: String,
             required: true,
         },
         coverImage: {
@@ -56,25 +51,15 @@ const userSchema = new Schema(
     }
 );
 
-/**
- * Pre-save Hook: Hashes the password using bcrypt before saving to the database.
- * isModified("password") ensures hashing only occurs when the password changes.
- */
 userSchema.pre("save", async function () {
     if (!this.isModified("password")) return;
     this.password = await bcrypt.hash(this.password, 10);
 });
 
-/**
- * Instance Method: Compares a plain-text password with the hashed password in the DB.
- */
 userSchema.methods.isPasswordCorrect = async function (password) {
     return await bcrypt.compare(password, this.password);
 };
 
-/**
- * Instance Method: Generates a short-lived JWT Access Token for user authentication.
- */
 userSchema.methods.generateAccessToken = function () {
     return jwt.sign(
         {
@@ -90,9 +75,6 @@ userSchema.methods.generateAccessToken = function () {
     );
 };
 
-/**
- * Instance Method: Generates a long-lived JWT Refresh Token to renew access without re-login.
- */
 userSchema.methods.generateRefreshToken = function () {
     return jwt.sign(
         {

@@ -21,24 +21,8 @@ const generateAccessAndRefreshToken = async (userId) => {
 
 const registerUser = asyncHandler(async (req, res) => {
     const { fullname, email, username, password } = req.body;
-    // Updated 'fullName' to 'fullname' to match the schema
     console.log("email", email);
-    // get user details from frontend
-    // validation - not empty
-    // check if user already exists: username, email
-    // check for Images, check for avatar
-    // upload them to cloudinary, avatar
-    // create user object - create entry in db 
-    // remove password and refresh token field from response 
-    //  check for user creation 
-    //return res
-    // res.status(200).json({
-    //     success: true,
-    //     message: "User registration endpoint hit",
-    //     data: { email }
-    // })
 
-    // Advance one 
     if (
         [fullname, email, username, password].some((field) => field?.trim() === "")
     ) {
@@ -93,13 +77,6 @@ const registerUser = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res) => {
 
     const { username, email, password } = req.body
-    // console.log("REQ.BODY:", req.body);
-    // const { email } = req.body;
-
-    // console.log("EMAIL FROM REQUEST:", email);
-
-    // const user = await User.findOne({ email });
-
 
     if (!username && !email) {
         throw new ApiError(400, "username or email is required")
@@ -108,9 +85,6 @@ const loginUser = asyncHandler(async (req, res) => {
     const user = await User.findOne({
         $or: [{ username }, { email }]
     })
-    // console.log("USER FROM DB:", user);
-    // const users = await User.find();
-    // console.log("ALL USERS:", users);
     if (!user) {
         throw new ApiError(400, "User does'nt exist")
     }
@@ -241,7 +215,7 @@ const updateAccountDetails = asyncHandler(async (req, res) => {
         {
             $set: {
                 fullName,
-                email: email /*Inconsistancy*/
+                email
             }
         }
         ,
@@ -301,7 +275,78 @@ const updateUserCoverAvatar = asyncHandler(async (req, res) => {
 
 })
 
+const getUserChannelProfile = asyncHandler(async (req,res) => {
+    const {username} = params
+    if (!username?.trim()){
+        throw new ApiError(404, "User not found")
+    }
+
+    const channel = await User.aggregate([
+        {
+            $match: {
+                username : username?.toLowerCase()
+            }
+        },
+        {
+            $lookup:{
+                from : "subScriptions",
+                localField: "_id",
+                foreignField: "channel",
+                as : "subcribers"
+
+            }
+        },
+        {
+            $lookup :{
+                from : "subScriptions",
+                localField: "_id",
+                foreignField: "subscriber",
+                as : "subcribedTo"
+            }
+        },
+
+        {
+                $addFields:{
+                    subscribersCount :{
+                        $size: "$subcribers"
+                    },
+                    channelSubscribedToCount:{
+                        $size:"$subcribedTo"
+                    },
+                    isSubscribed:{
+                        $cond:{
+                            if:{
+                                $in:[req.user?._id, "$subcribers.subcribers"]
+                            },
+                            then : true,
+                            else: false
+                        } 
+                    }
+                }
+        },
+        {
+                $project:{
+                    fullName : 1,
+                    username :1,
+                    subscribersCount :1,
+                    channelSubscribedToCount: 1,
+                    avatar :1,
+                    coverImage:1,
+                    email : 1
+
+                }
+        }
+        
+    ])
+    if (!channel?.length){
+        throw new ApiError(404, "Channel does'nt exist")
+    }
+    return res
+    .status(200)
+    .json(200, channel[0], "User channel fetched successfully")
+})
+
 export {
     registerUser, loginUser, logOutUser, refreshAccessToken,
-    changePassword, getCurrentUser, updateAccountDetails, updateUserAvatar, updateUserCoverAvatar
+    changePassword, getCurrentUser, updateAccountDetails, updateUserAvatar, updateUserCoverAvatar,getUserChannelProfile
 }
